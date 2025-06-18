@@ -14,8 +14,8 @@ on:
   workflow_dispatch:
   
 # Set variables
-env:
-  GH_WS: $env:GITHUB_WORKSPACE
+#env:
+#  GH_WS: $env:GITHUB_WORKSPACE
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -30,13 +30,18 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v4
       
+      # Set variables
+      - name: Set Variables
+        run: "GH_WS=$env:GITHUB_WORKSPACE" >> $env:GITHUB_ENV
+      
       # Start LabVIEW and wait for it to start to avoid timeout issues in following steps
       - name: Start LabVIEW
         #shell: pwsh
         run: |
-          Write-Host $env:GH_WS
-          Get-Location
-          cd $env:GH_WS
+          echo ${{ env.GH_WS }}
+        #  Write-Host $env:GH_WS
+        #  Get-Location
+          cd ${{ env.GH_WS }}
           Get-Location
           Start-Process "C:\Program Files\National Instruments\LabVIEW 2023\LabVIEW.exe"
           TIMOEUT /T 30
