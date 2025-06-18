@@ -15,7 +15,7 @@ on:
   
 # Set variables
 #env:
-#  GH_WS: $env:GITHUB_WORKSPACE
+#  GH_WS: ${{ github.workspace }}
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -38,7 +38,7 @@ jobs:
       
       # Run Unit Tests before executable build
       - name: LabVIEW Caraya Unit Tests
-        run: LabVIEWCLI -OperationName RunVI -VIPath ".\Source\Pre-Build\RunCL - Run All Tests.vi" -PortNumber 3364
+        run: LabVIEWCLI -OperationName RunVI -VIPath "${{ github.workspace }}\Source\Pre-Build\RunCL - Run All Tests.vi" -PortNumber 3364
       
       # Test report upload
       - name: Test Report
@@ -52,5 +52,5 @@ jobs:
       # Build LabVIEW Executable via LabVIEWCLI
       - name: LabVIEW Build
         #shell: pwsh
-        run: LabVIEWCLI -LogToConsole true -OperationName ExecuteBuildSpec -ProjectPath ".\source\LV_Calculator.lvproj" -BuildSpecName "LV_Calculator" -LabVIEWPath "C:\Program Files\National Instruments\LabVIEW 2023\LabVIEW.exe" -PortNumber 3364
+        run: LabVIEWCLI -LogToConsole true -OperationName ExecuteBuildSpec -ProjectPath "${{ github.workspace }}\source\LV_Calculator.lvproj" -BuildSpecName "LV_Calculator" -LabVIEWPath "C:\Program Files\National Instruments\LabVIEW 2023\LabVIEW.exe" -PortNumber 3364
    
