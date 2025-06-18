@@ -34,9 +34,9 @@ jobs:
       - name: Start LabVIEW
         shell: powershell
         run: |
-          echo ${{ github.ref }} 
+          echo ${{ github.workspace }} 
           Get-Location
-          cd ${{ github.ref }} 
+          cd ${{ github.workspace }} 
           Get-Location
           Start-Process "C:\Program Files\National Instruments\LabVIEW 2023\LabVIEW.exe"
           TIMOEUT /T 30
