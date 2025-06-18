@@ -30,18 +30,13 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v4
       
-      # Set variables
-      - name: Set Variables
-        run: "GH_WS=$env:GITHUB_WORKSPACE" >> $env:GITHUB_ENV
-      
       # Start LabVIEW and wait for it to start to avoid timeout issues in following steps
       - name: Start LabVIEW
-        #shell: pwsh
+        shell: powershell
         run: |
-          echo ${{ env.GH_WS }}
-        #  Write-Host $env:GH_WS
-        #  Get-Location
-          cd ${{ env.GH_WS }}
+          echo ${{ github.ref }} 
+          Get-Location
+          cd ${{ github.ref }} 
           Get-Location
           Start-Process "C:\Program Files\National Instruments\LabVIEW 2023\LabVIEW.exe"
           TIMOEUT /T 30
