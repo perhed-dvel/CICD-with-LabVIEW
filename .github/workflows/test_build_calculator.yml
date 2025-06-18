@@ -34,7 +34,7 @@ jobs:
       - name: Start LabVIEW
         #shell: pwsh
         run: |
-          echo ${{ env.var }}
+          Write-Host $env:GH_WS
           Get-Location
           cd $env:GH_WS
           Get-Location
