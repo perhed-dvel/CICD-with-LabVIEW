@@ -39,7 +39,7 @@ jobs:
           cd ${{ github.workspace }} 
           Get-Location
           Start-Process "C:\Program Files\National Instruments\LabVIEW 2023\LabVIEW.exe"
-          TIMOEUT /T 30
+          TIMEOUT /T 30
       
       # Run Unit Tests before executable build
       - name: LabVIEW Caraya Unit Tests
