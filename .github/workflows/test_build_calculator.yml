@@ -34,7 +34,7 @@ jobs:
       
       # Run Unit Tests before executable build
       - name: LabVIEW Caraya Unit Tests
-        run: LabVIEWCLI -OperationName RunVI -VIPath "$pwd\Source\Pre-Build\RunCL - Run All Tests.vi" 
+        run: LabVIEWCLI -OperationName RunVI -VIPath "%cd%\Source\Pre-Build\RunCL - Run All Tests.vi" -PortNumber 3364
       
       # Test report upload
       - name: Test Report
@@ -47,5 +47,5 @@ jobs:
             
       # Build LabVIEW Executable via LabVIEWCLI
       - name: LabVIEW Build
-        run: LabVIEWCLI -LogToConsole true -OperationName ExecuteBuildSpec -ProjectPath "%cd%\source\LV_Calculator.lvproj" -BuildSpecName "LV_Calculator" -LabVIEWPath "C:\Program Files\National Instruments\LabVIEW 2023\LabVIEW.exe" -PortNumber 3364
+        run: LabVIEWCLI -LogToConsole true -OperationName ExecuteBuildSpec -ProjectPath "%cd%\source\LV_Calculator.lvproj" -BuildSpecName "LV_Calculator" -PortNumber 3364
    
