@@ -26,11 +26,11 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v4
       
-      # Start LabVIEW and wait for it to start to avoid timeout issues in following steps
-      #- name: Start LabVIEW
-      #  run: |
-      #    START /B /D "C:\Program Files\National Instruments\LabVIEW 2023" LabVIEW.exe
-      #    TIMOEUT /T 30
+       Start LabVIEW and wait for it to start to avoid timeout issues in following steps
+      - name: Start LabVIEW
+        run: |
+          START /B /D "C:\Program Files\National Instruments\LabVIEW 2023" LabVIEW.exe
+          TIMOEUT /T 30
       
       # Run Unit Tests before executable build
       - name: LabVIEW Caraya Unit Tests
