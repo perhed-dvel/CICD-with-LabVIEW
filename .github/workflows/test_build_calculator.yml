@@ -23,9 +23,12 @@ jobs:
     
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-          
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v4
+      
+      # Start LabVIEW to avoid timeout issues in following steps
+      - name: Start LabVIEW
+        run: "C:\Program Files\National Instruments\LabVIEW 2023\LabVIEW.exe" && TIMEOUT /T 30
       
       # Run Unit Tests before executable build
       - name: LabVIEW Caraya Unit Tests
@@ -41,6 +44,6 @@ jobs:
           reporter: java-junit                      # Format of test results
             
       # Build LabVIEW Executable via LabVIEWCLI
-      - name: LabVIEW build
-        run: LabVIEWCLI -LogToConsole true -OperationName ExecuteBuildSpec -ProjectPath "$pwd\source\LV_Calculator.lvproj" -BuildSpecName "LV_Calculator" -LabVIEWPath "C:\Program Files\National Instruments\LabVIEW 2023\LabVIEW.exe" -PortNumber 3364
-      
+      - name: LabVIEW Build
+        run: LabVIEWCLI -LogToConsole true -OperationName ExecuteBuildSpec -ProjectPath "%cd%\source\LV_Calculator.lvproj" -BuildSpecName "LV_Calculator" -LabVIEWPath "C:\Program Files\National Instruments\LabVIEW 2023\LabVIEW.exe" -PortNumber 3364
+   
