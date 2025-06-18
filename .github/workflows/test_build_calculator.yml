@@ -32,7 +32,10 @@ jobs:
       
       # Start LabVIEW and wait for it to start to avoid timeout issues in following steps
       - name: Start LabVIEW
-        run: Start-Process "C:\Program Files\National Instruments\LabVIEW 2023\LabVIEW.exe" ; TIMEOUT /T 30
+        run: |
+        Start-Process "C:\Program Files\National Instruments\LabVIEW 2023\LabVIEW.exe"
+        sleep 30
+        #TIMEOUT /T 30
       
       # Run Unit Tests before executable build
       - name: LabVIEW Caraya Unit Tests
