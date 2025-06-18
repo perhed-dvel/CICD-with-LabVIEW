@@ -32,12 +32,12 @@ jobs:
       
       # Start LabVIEW and wait for it to start to avoid timeout issues in following steps
       - name: Start LabVIEW
-        shell: powershell
+      #  shell: powershell
         run: |
-          echo ${{ github.workspace }} 
-          Get-Location
-          cd ${{ github.workspace }} 
-          Get-Location
+      #    echo ${{ github.workspace }} 
+      #    Get-Location
+      #    cd ${{ github.workspace }} 
+      #    Get-Location
           Start-Process "C:\Program Files\National Instruments\LabVIEW 2023\LabVIEW.exe"
           TIMEOUT /T 30
       
