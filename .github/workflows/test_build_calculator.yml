@@ -28,16 +28,17 @@ jobs:
       
       # Start LabVIEW and wait for it to start to avoid timeout issues in following steps
       - name: Start LabVIEW
+        shell: pwsh
         run: |
-          Get-Location
-          cd $GITHUB_WORKSPACE
-          Get-Location
+          echo Get-Location
+          cd $env:GITHUB_WORKSPACE
+          echo Get-Location
           Start-Process "C:\Program Files\National Instruments\LabVIEW 2023\LabVIEW.exe"
           TIMOEUT /T 30
       
       # Run Unit Tests before executable build
       - name: LabVIEW Caraya Unit Tests
-        run: LabVIEWCLI -OperationName RunVI -VIPath "$GITHUB_WORKSPACE\Source\Pre-Build\RunCL - Run All Tests.vi" -PortNumber 3364
+        run: LabVIEWCLI -OperationName RunVI -VIPath ".\Source\Pre-Build\RunCL - Run All Tests.vi" -PortNumber 3364
       
       # Test report upload
       - name: Test Report
@@ -50,5 +51,6 @@ jobs:
             
       # Build LabVIEW Executable via LabVIEWCLI
       - name: LabVIEW Build
-        run: LabVIEWCLI -LogToConsole true -OperationName ExecuteBuildSpec -ProjectPath "$GITHUB_WORKSPACE\source\LV_Calculator.lvproj" -BuildSpecName "LV_Calculator" -LabVIEWPath "C:\Program Files\National Instruments\LabVIEW 2023\LabVIEW.exe" -PortNumber 3364
+        shell: pwsh
+        run: LabVIEWCLI -LogToConsole true -OperationName ExecuteBuildSpec -ProjectPath ".\source\LV_Calculator.lvproj" -BuildSpecName "LV_Calculator" -LabVIEWPath "C:\Program Files\National Instruments\LabVIEW 2023\LabVIEW.exe" -PortNumber 3364
    
