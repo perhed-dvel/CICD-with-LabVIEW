@@ -38,7 +38,7 @@ jobs:
       
       # Run Unit Tests before executable build
       - name: LabVIEW Caraya Unit Tests
-        run: LabVIEWCLI -OperationName RunVI -VIPath "${{ github.workspace }}\Source\Pre-Build\RunCL - Run All Tests.vi" -PortNumber 3364
+        run: LabVIEWCLI -OperationName RunVI -VIPath "${{ github.workspace }}\Source\Pre-Build\RunCL - Run All Tests.vi" -PortNumber 3363
       
       # Test report upload
       - name: Test Report
