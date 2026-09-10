@@ -58,7 +58,8 @@ runs:
   using: 'composite'
   steps:
     - name: Dispatch build-spec-docker-windows
-      shell: pwsh
+      #shell: pwsh
+      shell: powershell
       run: |
         $ErrorActionPreference = 'Stop'
         $args = @{
