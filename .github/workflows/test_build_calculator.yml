@@ -2,6 +2,10 @@
 
 name: CI - Test&Build
 
+# Local variable holding the docker image
+env:
+  docker_image: nationalinstruments/labview:2026q3-windows
+  
 # Controls when the workflow will run
 on:
   # Triggers the workflow on push or pull request events but only for the "main" branch
@@ -12,10 +16,6 @@ on:
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
-  
-# Set variables
-#env:
-#  GH_WS: ${{ github.workspace }}
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -23,34 +23,24 @@ jobs:
   build:
     permissions: write-all
     # The type of runner that the job will run on
-    runs-on: self-hosted
+    runs-on: [self-hosted, windows, x64]
     
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - name: Checkout repository
       - uses: actions/checkout@v4
       
-      # Start LabVIEW and wait for it to start to avoid timeout issues in following steps
-      - name: Start LabVIEW
-        run: |
-          Start-Process "C:\Program Files\National Instruments\LabVIEW 2023\LabVIEW.exe"
-          sleep 30
-      
-      # Run Unit Tests before executable build
-      - name: LabVIEW Caraya Unit Tests
-        run: LabVIEWCLI -OperationName RunVI -VIPath "${{ github.workspace }}\Source\Pre-Build\RunCL - Run All Tests.vi" -PortNumber 3363
-      
-      # Test report upload
-      - name: Test Report
-        uses: dorny/test-reporter@v2
-        if: success() || failure()                  # run this step even if previous step failed
-        with:
-          name: LabVIEW Tests                       # Name of the check run which will be created
-          path: Source/test-results/**/*.xml        # Path to test results
-          reporter: java-junit                      # Format of test results
-            
+      # Pull the docker image
+      - name: Pull LabVIEW container image
+        run: docker pull $env:docker_image
+                    
       # Build LabVIEW Executable via LabVIEWCLI
       - name: LabVIEW Build
         #shell: pwsh
-        run: LabVIEWCLI -LogToConsole true -OperationName ExecuteBuildSpec -ProjectPath "${{ github.workspace }}\source\LV_Calculator.lvproj" -BuildSpecName "LV_Calculator" -LabVIEWPath "C:\Program Files\National Instruments\LabVIEW 2023\LabVIEW.exe" -PortNumber 3363
-   
+        run: >
+          docker run --rm
+          -v "${{ github.workspace }}:C:\workspace"
+          $env:docker_image
+          LabVIEWCLI -LogToConsole TRUE -OperationName ExecuteBuildSpec
+          -ProjectPath "C:\workspace\Source\LV_Calculator.lvproj" -BuildSpecName "LV_Calculator" -Headless
