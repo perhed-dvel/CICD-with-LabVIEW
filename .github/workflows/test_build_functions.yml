@@ -1,0 +1,30 @@
+name: Build LabVIEW Packed Library via Local Action
+
+on:
+  push:
+    branches: [ "main" ]
+    
+  workflow_dispatch:
+
+jobs:
+  build_lvlibp:
+    runs-on: [self-hosted, windows, x64, runner-2]
+
+    steps:
+      # Checkout source code to runner
+      - name: Checkout Source Code
+        uses: actions/checkout@v4
+
+      # Run build action
+      - name: Run Build Spec Docker Windows Action
+        uses: ./.github/build-spec-docker-windows
+        with:
+          # Mandatory
+          minimum_supported_lv_version: 2023
+          supported_bitness: 64
+          project_path: 'Source/LV_Calculator.lvproj'
+          
+          # Optional
+          docker_image: nationalinstruments/labview
+          image_tag: '2026q3-windows'
+          build_spec_name: 'Functions'
