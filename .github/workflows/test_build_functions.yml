@@ -20,11 +20,11 @@ jobs:
         uses: ./.github/build-spec-docker-windows
         with:
           # Mandatory
-          minimum_supported_lv_version: 2023
+          minimum_supported_lv_version: 2026
           supported_bitness: 64
           project_path: 'Source/LV_Calculator.lvproj'
           
           # Optional
-          docker_image: nationalinstruments/labview
-          image_tag: '2026q3-windows'
+          docker_image: prevas/labview
+          image_tag: '2026q3-windows-ci1'
           build_spec_name: 'Functions'
