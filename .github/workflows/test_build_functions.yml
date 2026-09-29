@@ -17,7 +17,8 @@ jobs:
 
       # Run build action
       - name: Run Build Spec Docker Windows Action
-        uses: ./.github/build-spec-docker-windows
+        #uses: ./build-spec-docker-windows
+        uses: ni/open-source/build-spec-docker-windows@v1
         with:
           # Mandatory
           minimum_supported_lv_version: 2026
