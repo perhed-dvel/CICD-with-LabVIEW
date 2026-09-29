@@ -26,6 +26,6 @@ jobs:
           project_path: 'Source/LV_Calculator.lvproj'
           
           # Optional
-          docker_image: prevas/labview
+          docker_image: 'prevas/labview'
           image_tag: '2026q3-windows-ci1'
           build_spec_name: 'Functions'
