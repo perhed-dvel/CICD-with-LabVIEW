@@ -17,8 +17,7 @@ jobs:
 
       # Run build action
       - name: Run Build Spec Docker Windows Action
-        #uses: ./.github/actions/build-spec-docker-windows
-        uses: ni/open-source/build-spec-docker-windows@actions
+        uses: perhed-dvel/open-source/build-spec-docker-windows@per-dev
         with:
           # Mandatory
           minimum_supported_lv_version: 2026
