@@ -58,3 +58,9 @@ Thumbs.db
 *.bkp
 *.dtmp
 Source/test-results/
+
+
+# Misc
+*_DEL
+*_OLD
+*_NEW

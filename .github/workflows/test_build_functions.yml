@@ -22,7 +22,7 @@ jobs:
           # Mandatory
           minimum_supported_lv_version: 2026
           supported_bitness: 64
-          project_path: 'Source/LV_Calculator.lvproj'
+          project_path: 'Source\LV_Calculator.lvproj'
           
           # Optional
           docker_image: 'prevas/labview'
