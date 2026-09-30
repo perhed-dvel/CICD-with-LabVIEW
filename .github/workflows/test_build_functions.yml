@@ -15,13 +15,6 @@ jobs:
       - name: Checkout Source Code
         uses: actions/checkout@v4
       
-      - name: Close LabVIEW
-        uses: perhed-dvel/open-source/close-labview@per-dev
-        with:
-          # Mandatory
-          minimum_supported_lv_version: 2026
-          supported_bitness: 64
-    
       - name: Configure LabVIEW for Remote Access
         uses: perhed-dvel/open-source/configure-labview@per-dev
         with:
