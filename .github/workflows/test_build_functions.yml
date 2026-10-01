@@ -14,17 +14,6 @@ jobs:
     steps:
       - name: Checkout Source Code
         uses: actions/checkout@v4
-      
-      - name: Configure LabVIEW for Remote Access
-        uses: perhed-dvel/open-source/configure-labview@per-dev
-        with:
-          # Optional
-          labview_version: 2026
-          ini_settings: |
-              server.tcp.enabled=TRUE
-              server.tcp.access=+*
-              server.tcp.port=3363
-              server.viscripting.ShowScriptingOperationsInEditor=TRUE
 
       - name: Run Build Spec Docker Windows Action
         uses: perhed-dvel/open-source/build-spec-docker-windows@per-dev
@@ -36,5 +25,5 @@ jobs:
           
           # Optional
           docker_image: 'prevas/labview'
-          image_tag: '2026q3-windows-ci1'
+          image_tag: '2026q3-windows-ci0'
           build_spec_name: 'Functions'
