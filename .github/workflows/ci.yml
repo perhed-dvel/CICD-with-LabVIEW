@@ -1,4 +1,4 @@
-name: Build LabVIEW Packed Library via Local Action
+name: CI Pipeline
 
 on:
   push:
@@ -8,14 +8,13 @@ on:
 
 jobs:
   via-lv-docker:
+    name: VI Analyzer
     runs-on: [self-hosted, windows, x64, runner-2]
 
     steps:
-      # Checkout source code to runner
       - name: Checkout Source Code
         uses: actions/checkout@v4
 
-      # Run VI Analyzer
       - name: Run VI Analyzer
         uses: perhed-dvel/open-source/via-lv-docker@per-dev
         with:
@@ -31,23 +30,20 @@ jobs:
           path: vi-analyzer-report.htm
           
   build_lvlibp:
+    name: Build Packed Library
+    needs: [via-lv-docker]
     runs-on: [self-hosted, windows, x64, runner-2]
 
     steps:
-      # Checkout source code to runner
       - name: Checkout Source Code
         uses: actions/checkout@v4
 
-      # Run build action
       - name: Run Build Spec Docker Windows Action
         uses: perhed-dvel/open-source/build-spec-docker-windows@per-dev
         with:
-          # Mandatory
           minimum_supported_lv_version: 2026
           supported_bitness: 64
           project_path: 'Source\LV_Calculator.lvproj'
-          
-          # Optional
           docker_image: 'prevas/labview'
           image_tag: '2026q3-windows-ci0'
           build_spec_name: 'Functions'
