@@ -26,5 +26,5 @@ jobs:
           
           # Optional
           docker_image: 'prevas/labview'
-          image_tag: '2026q3-windows-ci1'
+          image_tag: '2026q3-windows-ci0'
           build_spec_name: 'Functions'
