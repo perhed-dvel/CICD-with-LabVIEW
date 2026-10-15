@@ -5,7 +5,7 @@ on:
 
 jobs:
   via-lv-docker:
-    runs-on: [self-hosted, windows, x64, runner-2]
+    runs-on: ubuntu-latest
 
     steps:
       # Checkout source code to runner
@@ -16,9 +16,9 @@ jobs:
       - name: Run VI Analyzer
         uses: perhed-dvel/open-source/via-lv-docker@per-dev
         with:
-          config_path: '.github/via-config-windows.viancfg'
-          docker_image: 'prevas/labview'
-          labview_version: '2026q3-windows-ci0'
+          config_path: '.github/via-config-linux.viancfg'
+          docker_image: 'nationalinstruments/labview'
+          labview_version: '2026q3-linux'
 
       - name: Upload Report
         uses: actions/upload-artifact@v4
