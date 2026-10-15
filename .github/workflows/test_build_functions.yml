@@ -7,14 +7,15 @@ on:
   workflow_dispatch:
 
 jobs:
-  
   build_lvlibp:
     runs-on: [self-hosted, windows, x64, runner-2]
 
     steps:
+      # Checkout source code to runner
       - name: Checkout Source Code
         uses: actions/checkout@v4
 
+      # Run build action
       - name: Run Build Spec Docker Windows Action
         uses: perhed-dvel/open-source/build-spec-docker-windows@per-dev
         with:
@@ -25,5 +26,5 @@ jobs:
           
           # Optional
           docker_image: 'prevas/labview'
-          image_tag: '2026q3-windows-ci0'
+          image_tag: '2026q3-windows-ci1'
           build_spec_name: 'Functions'
