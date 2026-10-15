@@ -1,0 +1,29 @@
+name: Build LabVIEW Packed Library via Local Action
+
+on:
+  push:
+    branches: [ "main" ]
+    
+  workflow_dispatch:
+
+jobs:
+  build_lvlibp:
+    runs-on: [self-hosted, windows, x64, runner-2]
+
+    steps:
+      # Checkout source code to runner
+      - name: Checkout Source Code
+        uses: actions/checkout@v4
+
+      # Run VI Analyzer
+      - name: Run VI Analyzer
+        uses: perhed-dvel/open-source/via-lv-docker@per-dev
+        with:
+          config-path: '.github/via-config-windows.viancfg'
+
+      - name: Upload Report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: vi-analyzer-report
+          path: vi-analyzer-report.htm
