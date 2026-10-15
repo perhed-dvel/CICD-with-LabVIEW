@@ -1,0 +1,53 @@
+name: Build LabVIEW Packed Library via Local Action
+
+on:
+  push:
+    branches: [ "main" ]
+
+  workflow_dispatch:
+
+jobs:
+  via-lv-docker:
+    runs-on: [self-hosted, windows, x64, runner-2]
+
+    steps:
+      # Checkout source code to runner
+      - name: Checkout Source Code
+        uses: actions/checkout@v4
+
+      # Run VI Analyzer
+      - name: Run VI Analyzer
+        uses: perhed-dvel/open-source/via-lv-docker@per-dev
+        with:
+          config_path: '.github/via-config-windows.viancfg'
+          docker_image: 'prevas/labview'
+          labview_version: '2026q3-windows-ci0'
+
+      - name: Upload Report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: vi-analyzer-report
+          path: vi-analyzer-report.htm
+          
+  build_lvlibp:
+    runs-on: [self-hosted, windows, x64, runner-2]
+
+    steps:
+      # Checkout source code to runner
+      - name: Checkout Source Code
+        uses: actions/checkout@v4
+
+      # Run build action
+      - name: Run Build Spec Docker Windows Action
+        uses: perhed-dvel/open-source/build-spec-docker-windows@per-dev
+        with:
+          # Mandatory
+          minimum_supported_lv_version: 2026
+          supported_bitness: 64
+          project_path: 'Source\LV_Calculator.lvproj'
+          
+          # Optional
+          docker_image: 'prevas/labview'
+          image_tag: '2026q3-windows-ci0'
+          build_spec_name: 'Functions'

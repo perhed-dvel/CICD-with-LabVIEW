@@ -1,13 +1,10 @@
 name: VI Analyzer Tests
 
 on:
-  push:
-    branches: [ "main" ]
-    
   workflow_dispatch:
 
 jobs:
-  vi_analyzer:
+  via-lv-docker:
     runs-on: [self-hosted, windows, x64, runner-2]
 
     steps:
@@ -19,9 +16,9 @@ jobs:
       - name: Run VI Analyzer
         uses: perhed-dvel/open-source/via-lv-docker@per-dev
         with:
-          config-path: '.github/via-config-windows.viancfg'
-          docker-image: 'prevas/labview'
-          labview-version: '2026q3-windows-ci0'
+          config_path: '.github/via-config-windows.viancfg'
+          docker_image: 'prevas/labview'
+          labview_version: '2026q3-windows-ci0'
 
       - name: Upload Report
         uses: actions/upload-artifact@v4

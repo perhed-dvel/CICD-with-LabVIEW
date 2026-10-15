@@ -1,9 +1,6 @@
 name: Build LabVIEW Packed Library via Local Action
 
 on:
-  push:
-    branches: [ "main" ]
-    
   workflow_dispatch:
 
 jobs:
