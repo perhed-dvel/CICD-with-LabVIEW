@@ -18,7 +18,7 @@ jobs:
       - name: Run VI Analyzer
         uses: perhed-dvel/open-source/via-lv-docker@per-dev
         with:
-          config_path: '.github/via-config-linux.viancfg'
+          #config_path: '.github/via-config-linux.viancfg'
           docker_image: 'nationalinstruments/labview'
           labview_version: '2026q3-linux'
 
